@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:time_tracker_app/services/services.dart';
-
 import 'components/components.dart';
 
 class EmailSignInPage extends StatelessWidget {
@@ -17,7 +15,7 @@ class EmailSignInPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Card(
-            child: EmailSignInForm(),
+            child: EmailSignInFormBlocBased.create(context),
           ),
         ),
       ),
