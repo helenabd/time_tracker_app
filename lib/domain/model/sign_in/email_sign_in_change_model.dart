@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:time_tracker_app/app/sign_in/validators.dart';
 import 'package:time_tracker_app/services/services.dart';
 
-import '../domain.dart';
+import '../../domain.dart';
 
 class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
   String email;
