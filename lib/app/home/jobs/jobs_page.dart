@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker_app/app/home/jobs/jobs.dart';
 import 'package:time_tracker_app/domain/domain.dart';
 import 'package:time_tracker_app/services/services.dart';
 import 'package:time_tracker_app/widgets/widgets.dart';
@@ -62,8 +63,8 @@ class JobsPage extends StatelessWidget {
       ),
       body: Container(child: _buildContent(context)),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _createJob(context),
         child: Icon(Icons.add),
+        onPressed: () => AddJobPage.show(context),
       ),
     );
   }
