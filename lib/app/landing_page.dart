@@ -17,7 +17,7 @@ class LandingPage extends StatelessWidget {
           if (user == null) {
             return SignInPage.create(context);
           }
-          return HomePage();
+          return JobsPage();
         }
         return Scaffold(
           body: Center(
