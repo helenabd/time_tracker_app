@@ -13,6 +13,26 @@ class AddJobPage extends StatefulWidget {
 }
 
 class _AddJobPageState extends State<AddJobPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  String _name;
+  int _ratePerHour;
+
+  bool _validadeteAndSaveForm() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  void _submit() {
+    if (_validadeteAndSaveForm()) {
+      print('form saved, name: $_name, ratePerHour: $_ratePerHour');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +40,18 @@ class _AddJobPageState extends State<AddJobPage> {
         elevation: 2.0,
         title: Text('New Job'),
         centerTitle: true,
+        actions: [
+          TextButton(
+            child: Text(
+              'Save',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
+            onPressed: _submit,
+          )
+        ],
       ),
       backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
@@ -28,8 +60,28 @@ class _AddJobPageState extends State<AddJobPage> {
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Placeholder(
-                fallbackHeight: 200,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Job name'),
+                      validator: (value) =>
+                          value.isNotEmpty ? null : 'Name can\'t be empty',
+                      onSaved: (newValue) => _name = newValue,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Rate per hour'),
+                      onSaved: (newValue) =>
+                          _ratePerHour = int.parse(newValue) ?? 0,
+                      keyboardType: TextInputType.numberWithOptions(
+                        signed: false,
+                        decimal: false,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
