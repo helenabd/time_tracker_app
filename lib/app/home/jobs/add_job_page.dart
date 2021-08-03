@@ -108,7 +108,7 @@ class _AddJobPageState extends State<AddJobPage> {
                     TextFormField(
                       decoration: InputDecoration(labelText: 'Rate per hour'),
                       onSaved: (newValue) =>
-                          _ratePerHour = int.parse(newValue) ?? 0,
+                          _ratePerHour = int.tryParse(newValue) ?? 0,
                       keyboardType: TextInputType.numberWithOptions(
                         signed: false,
                         decimal: false,
