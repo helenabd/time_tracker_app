@@ -50,7 +50,7 @@ class JobsPage extends StatelessWidget {
       body: Container(child: _buildContent(context)),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => AddJobPage.show(context),
+        onPressed: () => EditJobPage.show(context),
       ),
     );
   }
@@ -65,7 +65,10 @@ class JobsPage extends StatelessWidget {
           final children = jobs
               .map((job) => JobListTile(
                     job: job,
-                    onTap: () {},
+                    onTap: () => EditJobPage.show(
+                      context,
+                      job: job,
+                    ),
                   ))
               .toList();
           return ListView(
