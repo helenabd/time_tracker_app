@@ -62,18 +62,21 @@ class JobsPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final jobs = snapshot.data;
-          final children = jobs
-              .map((job) => JobListTile(
-                    job: job,
-                    onTap: () => EditJobPage.show(
-                      context,
+          if (jobs.isNotEmpty) {
+            final children = jobs
+                .map((job) => JobListTile(
                       job: job,
-                    ),
-                  ))
-              .toList();
-          return ListView(
-            children: children,
-          );
+                      onTap: () => EditJobPage.show(
+                        context,
+                        job: job,
+                      ),
+                    ))
+                .toList();
+            return ListView(
+              children: children,
+            );
+          }
+          return EmptyContent();
         }
         if (snapshot.hasError) {
           return Center(
