@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_app/domain/domain.dart';
 
 import 'package:time_tracker_app/services/services.dart';
+import 'package:time_tracker_app/widgets/widgets.dart';
 
 class AddJobPage extends StatefulWidget {
   final Database database;
@@ -40,9 +42,28 @@ class _AddJobPageState extends State<AddJobPage> {
 
   Future<void> _submit() async {
     if (_validadeteAndSaveForm()) {
-      final job = Job(name: _name, ratePerHour: _ratePerHour);
-      await widget.database.createJob(job);
-      Navigator.of(context).pop();
+      try {
+        final jobs = await widget.database.jobsStream().first;
+        final allNames = jobs.map((job) => job.name).toList();
+        if (allNames.contains(_name)) {
+          showAlertDialog(
+            context,
+            title: 'Name already used',
+            content: 'Please choose a different job name',
+            defaultActionText: 'OK',
+          );
+        } else {
+          final job = Job(name: _name, ratePerHour: _ratePerHour);
+          await widget.database.createJob(job);
+          Navigator.of(context).pop();
+        }
+      } on FirebaseException catch (e) {
+        showExceptionAlertDialog(
+          context,
+          title: 'Operation failed ',
+          exception: e,
+        );
+      }
     }
   }
 
