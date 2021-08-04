@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker_app/app/home/home.dart';
 import 'package:time_tracker_app/app/home/jobs/jobs.dart';
 import 'package:time_tracker_app/domain/domain.dart';
 import 'package:time_tracker_app/services/services.dart';
@@ -51,7 +52,10 @@ class JobsPage extends StatelessWidget {
       body: Container(child: _buildContent(context)),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => EditJobPage.show(context),
+        onPressed: () => EditJobPage.show(
+          context,
+          database: Provider.of<Database>(context, listen: false),
+        ),
       ),
     );
   }
@@ -83,10 +87,7 @@ class JobsPage extends StatelessWidget {
             onDismissed: (direction) => _delete(context, job),
             child: JobListTile(
               job: job,
-              onTap: () => EditJobPage.show(
-                context,
-                job: job,
-              ),
+              onTap: () => JobEntriesPage.show(context, job),
             ),
           ),
         );
