@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     return {
       TabItem.Jobs: (_) => JobsPage(),
       TabItem.Entries: (_) => Container(),
-      TabItem.Account: (_) => Container(),
+      TabItem.Account: (_) => AccountPage(),
     };
   }
 
