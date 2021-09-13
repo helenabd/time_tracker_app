@@ -27,9 +27,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _select(TabItem tabItem) {
-    setState(() {
-      _currentTab = tabItem;
-    });
+    if (tabItem == _currentTab) {
+      navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
+    } else {
+      setState(() {
+        _currentTab = tabItem;
+      });
+    }
   }
 
   @override
